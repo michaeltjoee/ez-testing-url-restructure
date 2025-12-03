@@ -39,9 +39,3 @@ export const PAGE_EXPECTED_TEXT_ID: Record<string, string> = {
   "/promo": "Nikmati berbagai promo terbaik saat ini!", // Promo page
   "/destination/japan": `Daftar`, // Destination page
 };
-
-// Locale validation text - confirms the user's active locale
-export const LOCALE_TEXT = {
-  en: "Your Orders", // English locale indicator
-  id: "Pesananmu", // Indonesian locale indicator
-};

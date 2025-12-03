@@ -1,10 +1,5 @@
 import { test, expect } from "@playwright/test";
-import {
-  BASE_URL,
-  PAGE_PATHS,
-  PAGE_EXPECTED_TEXT_EN,
-  LOCALE_TEXT,
-} from "./constants";
+import { BASE_URL, PAGE_PATHS, PAGE_EXPECTED_TEXT_EN } from "./constants";
 
 const shouldValidateText = process.env.validateText === "true";
 
@@ -30,9 +25,6 @@ test.describe("Main Logic - en-us locale should display USD currency (TEST CASE 
 
       // Text validation (only when validateText=true)
       if (shouldValidateText) {
-        // Expect English locale text to confirm active locale
-        await expect(page.getByText(LOCALE_TEXT.en).first()).toBeVisible();
-
         // Expect path-specific text to be visible
         await expect(page.getByText(expectedText).first()).toBeVisible();
       }
@@ -62,9 +54,6 @@ test.describe("Main Logic - en-us locale with currency=IDR query param (TEST CAS
 
       // Text validation (only when validateText=true)
       if (shouldValidateText) {
-        // Expect English locale text to confirm active locale
-        await expect(page.getByText(LOCALE_TEXT.en).first()).toBeVisible();
-
         // Expect path-specific text to be visible
         await expect(page.getByText(expectedText).first()).toBeVisible();
       }

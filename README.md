@@ -31,6 +31,9 @@ pnpm exec playwright test
 # Main logic tests (en-us with USD currency)
 pnpm exec playwright test mainLogic
 
+# Logged out user with cookies tests
+pnpm exec playwright test logoutLogin
+
 # Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10)
 pnpm exec playwright test nonTargetedCountryAndLocale
 
@@ -116,6 +119,12 @@ Tests that `/en-us` locale stays on the same URL and displays USD currency in th
 - `/en-us` should stay on `/en-us` and display USD currency
 - Tests all page paths (home, explore, voucher-box, promo, destination)
 
+### Logged Out User with Cookies
+Tests for logged out users with `userlang` and `tiket_currency` cookies set.
+
+- `/en-us` with `userlang=id` and `tiket_currency=IDR` cookies redirects to `/id-us` with IDR currency
+- Tests all page paths with cookie-based locale/currency override
+
 ### Non-Targeted Country and Locale (TEST CASE 6, 7, 8, 9, 10)
 Tests for non-targeted countries with various locale and currency settings. These tests simulate users from different regions using browser locale/timezone settings.
 
@@ -163,7 +172,8 @@ pnpm exec playwright show-report
 ```
 ├── tests/
 │   ├── constants.ts                                    # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
-│   ├── mainLogic.spec.ts                               # Main logic tests (en-us with USD)
+│   ├── mainLogic(4,5).spec.ts                          # Main logic tests (en-us with USD)
+│   ├── logoutLogin.spec.ts                             # Logged out user with cookies tests
 │   ├── nonTargetedCountryAndLocale (6,7,8,9,10).spec.ts  # Non-targeted country/locale tests
 │   ├── nonTargetedLocale(11,12,13,20,21,22).spec.ts    # Non-targeted locale tests
 │   ├── invalidPathRedirection(41-43).spec.ts           # Invalid path redirection tests

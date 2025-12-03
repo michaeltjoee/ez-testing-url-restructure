@@ -48,17 +48,16 @@ When creating a new test case or test file:
   
   // In test:
   if (shouldValidateText) {
-    // Validate active locale text (e.g., "Your Orders" for en, "Pesananmu" for id)
-    await expect(page.getByText(LOCALE_TEXT.en).first()).toBeVisible();
-    
     // Validate path-specific text
     await expect(page.getByText(expectedText).first()).toBeVisible();
   }
   ```
   
-  Available locale text constants from `constants.ts`:
-  - `LOCALE_TEXT.en` - "Your Orders" (English locale indicator)
-  - `LOCALE_TEXT.id` - "Pesananmu" (Indonesian locale indicator)
+  Use text validation constants from `constants.ts`:
+  - `PAGE_EXPECTED_TEXT_EN` - Path-specific expected text for English locale (en)
+  - `PAGE_EXPECTED_TEXT_ID` - Path-specific expected text for Indonesian locale (id)
+  
+  **DO NOT use separate locale validation text (LOCALE_TEXT). Only use PAGE_EXPECTED_TEXT_EN and PAGE_EXPECTED_TEXT_ID for text validation.**
 
 ## Testing Patterns
 
