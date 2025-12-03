@@ -19,7 +19,22 @@ pnpm exec playwright install
 
 ## Running Tests
 
-### Run all tests
+### Recommended: Run tests in UI mode
+
+The best way to run and debug tests is using Playwright's interactive UI mode:
+
+```bash
+pnpm exec playwright test --ui
+```
+
+This opens an interactive interface where you can:
+- See all test files and cases
+- Run individual tests or test suites
+- Watch tests execute in real-time
+- View detailed test traces and screenshots
+- Debug failing tests easily
+
+### Run all tests (headless)
 
 ```bash
 pnpm exec playwright test
@@ -57,12 +72,6 @@ pnpm exec playwright test mDomain
 
 ```bash
 pnpm exec playwright test --headed
-```
-
-### Run tests in UI mode
-
-```bash
-pnpm exec playwright test --ui
 ```
 
 ### Run tests for specific browser
