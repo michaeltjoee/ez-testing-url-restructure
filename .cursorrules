@@ -1,0 +1,71 @@
+# Playwright Test Project Rules
+
+## Test Case Creation
+
+When creating a new test case or test file:
+
+1. **Always update `README.md`** with:
+   - Add the test case to the "Test Cases" section with a description
+   - Add the run command to "Run specific test file" section if it's a new file
+   - Update the "Project Structure" section if a new file is created
+
+2. **Follow naming conventions**:
+   - Test files: `testCategory(testCaseNumbers).spec.ts` (e.g., `nonTargetedLocale(11,12,13).spec.ts`)
+   - Test describe blocks should include the test case number in the description
+
+3. **ALWAYS use shared constants** from `tests/constants.ts`:
+   - Import at the top of every test file: `import { BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS } from './constants';`
+   - `BASE_URL` - Main tiket.com domain (preprod.tiket.com or tiket.com)
+   - `EN_DOMAIN` - English subdomain (en.preprod.tiket.com or en.tiket.com)
+   - `M_DOMAIN` - Mobile subdomain (m.preprod.tiket.com or m.tiket.com)
+   - `PAGE_PATHS` - Common page paths to test across all redirect tests
+   - If a new constant is needed, add it to `tests/constants.ts` first, then use it in tests
+
+4. **Browser context configuration** for simulating different user regions:
+   ```typescript
+   test.use({
+     locale: 'zh-CN',           // Browser locale
+     timezoneId: 'Asia/Shanghai', // Timezone
+     geolocation: { longitude: x, latitude: y },
+     permissions: ['geolocation'],
+   });
+   ```
+
+5. **Clear cookies before each test** to ensure clean state:
+   ```typescript
+   test.beforeEach(async ({ context }) => {
+     await context.clearCookies();
+   });
+   ```
+
+## Environment Variables
+
+- `environment` - Set to `preprod` (default) or `production`
+- `isUsingJapanVPN` - Set to `true` when testing through Japan VPN
+
+## Testing Patterns
+
+- Test all `PAGE_PATHS` when testing redirects
+- Always verify both URL redirect and currency display in header
+- Use `page.locator('header').getByText('CURRENCY')` for currency assertions
+
+## Adding New Constants
+
+When a test requires a new URL, path, or reusable value:
+
+1. **Add the constant to `tests/constants.ts`** first
+2. Export it properly
+3. Import and use it in test files
+4. Never hardcode URLs or repeated values directly in test files
+
+Example of adding a new constant:
+```typescript
+// In tests/constants.ts
+export const NEW_CONSTANT = env === 'production'
+  ? 'https://production-value.com'
+  : 'https://preprod-value.com';
+
+// In test file
+import { BASE_URL, NEW_CONSTANT } from './constants';
+```
+
