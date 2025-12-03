@@ -34,7 +34,7 @@ pnpm exec playwright test invalidPathRedirection
 # EN domain tests (TEST CASE 44, 45, 46, 47, 50)
 pnpm exec playwright test enDomain
 
-# M domain tests (TEST CASE 48)
+# M domain tests (TEST CASE 48, 49, 51)
 pnpm exec playwright test mDomain
 ```
 
@@ -101,8 +101,10 @@ Tests that invalid locale-country paths redirect to `/en-sg` with SGD currency.
 - **TEST CASE 47**: With cookies, `/en-us` path redirects to `/id-us` with IDR currency
 - **TEST CASE 50**: Currency query param `?currency=IDR` is preserved and displays IDR
 
-### M Domain Redirection (TEST CASE 48)
-Tests that m.tiket.com (legacy mobile domain) redirects to `/en-sg` with SGD currency.
+### M Domain Redirection (TEST CASE 48, 49, 51)
+- **TEST CASE 48**: M domain (legacy mobile) redirects to `/en-sg` with SGD currency
+- **TEST CASE 49**: M domain with `/en-us` path redirects to `/en-us` with USD currency
+- **TEST CASE 51**: M domain with `?currency=IDR` query param redirects to `/en-sg?currency=IDR` with IDR currency
 
 ## View Test Report
 
@@ -116,11 +118,11 @@ pnpm exec playwright show-report
 
 ```
 ├── tests/
-│   ├── constants.ts                        # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
+│   ├── constants.ts                          # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
 │   ├── invalidPathRedirection(41-43).spec.ts
 │   ├── enDomain(44,45,46,47,50).spec.ts
-│   └── mDomain(48).spec.ts
-├── playwright.config.ts                    # Playwright configuration
+│   └── mDomain(48,49,51).spec.ts
+├── playwright.config.ts                      # Playwright configuration
 ├── package.json
 └── README.md
 ```
