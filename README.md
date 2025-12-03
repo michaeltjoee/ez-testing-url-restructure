@@ -28,6 +28,9 @@ pnpm exec playwright test
 ### Run specific test file
 
 ```bash
+# Main logic tests (en-us with USD currency)
+pnpm exec playwright test mainLogic
+
 # Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10)
 pnpm exec playwright test nonTargetedCountryAndLocale
 
@@ -87,6 +90,7 @@ Create a `.env` file in the project root:
 ```env
 environment=preprod
 isUsingJapanVPN=false
+validateText=false
 ```
 
 ### Environment Variables
@@ -95,6 +99,7 @@ isUsingJapanVPN=false
 |----------|--------|---------|-------------|
 | `environment` | `preprod`, `production` | `preprod` | Target environment for tests |
 | `isUsingJapanVPN` | `true`, `false` | `false` | Set to `true` when running tests through a Japan VPN to simulate Japanese IP geolocation |
+| `validateText` | `true`, `false` | `false` | Set to `true` to enable path-specific text validation (e.g., "Enjoy our great ongoing promos!" on /promo page) |
 
 ## Domain Configuration
 
@@ -104,6 +109,12 @@ isUsingJapanVPN=false
 | Production | en.tiket.com | m.tiket.com | tiket.com |
 
 ## Test Cases
+
+### Main Logic - en-us with USD Currency
+Tests that `/en-us` locale stays on the same URL and displays USD currency in the header.
+
+- `/en-us` should stay on `/en-us` and display USD currency
+- Tests all page paths (home, explore, voucher-box, promo, destination)
 
 ### Non-Targeted Country and Locale (TEST CASE 6, 7, 8, 9, 10)
 Tests for non-targeted countries with various locale and currency settings. These tests simulate users from different regions using browser locale/timezone settings.
@@ -152,6 +163,7 @@ pnpm exec playwright show-report
 ```
 ├── tests/
 │   ├── constants.ts                                    # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
+│   ├── mainLogic.spec.ts                               # Main logic tests (en-us with USD)
 │   ├── nonTargetedCountryAndLocale (6,7,8,9,10).spec.ts  # Non-targeted country/locale tests
 │   ├── nonTargetedLocale(11,12,13,20,21,22).spec.ts    # Non-targeted locale tests
 │   ├── invalidPathRedirection(41-43).spec.ts           # Invalid path redirection tests

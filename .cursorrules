@@ -42,6 +42,23 @@ When creating a new test case or test file:
 
 - `environment` - Set to `preprod` (default) or `production`
 - `isUsingJapanVPN` - Set to `true` when testing through Japan VPN
+- `validateText` - Set to `true` to enable path-specific text validation. When `false` (default), skip text content assertions. Use this pattern:
+  ```typescript
+  const shouldValidateText = process.env.validateText === "true";
+  
+  // In test:
+  if (shouldValidateText) {
+    // Validate active locale text (e.g., "Your Orders" for en, "Pesananmu" for id)
+    await expect(page.getByText(LOCALE_TEXT.en).first()).toBeVisible();
+    
+    // Validate path-specific text
+    await expect(page.getByText(expectedText).first()).toBeVisible();
+  }
+  ```
+  
+  Available locale text constants from `constants.ts`:
+  - `LOCALE_TEXT.en` - "Your Orders" (English locale indicator)
+  - `LOCALE_TEXT.id` - "Pesananmu" (Indonesian locale indicator)
 
 ## Testing Patterns
 
