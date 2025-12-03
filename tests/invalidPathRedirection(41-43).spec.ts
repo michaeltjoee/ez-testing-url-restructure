@@ -1,0 +1,24 @@
+import { test, expect } from '@playwright/test';
+import { BASE_URL, PAGE_PATHS } from './constants';
+
+const INVALID_LOCALE_COUNTRY_CASES = [
+  '/a-b',       // 1 digit
+  '/abc-abc',   // 3 digit
+  '/abcd-abcd', // 4 digit
+];
+
+const EXPECTED_URL = `${BASE_URL}/en-sg`;
+
+const pathsToTest = INVALID_LOCALE_COUNTRY_CASES.flatMap(locale => 
+  PAGE_PATHS.map(page => `${locale}${page}`)
+);
+
+for (const path of pathsToTest) {
+  const url = `${BASE_URL}${path}`;
+  test(`should redirect ${url} to ${EXPECTED_URL} and display SGD currency (TEST CASE 41 - 43)`, async ({ page }) => {
+    await page.goto(url);
+
+    await expect(page).toHaveURL(EXPECTED_URL);
+    await expect(page.locator('text=SGD').first()).toBeVisible();
+  });
+}
