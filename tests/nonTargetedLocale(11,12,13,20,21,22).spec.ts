@@ -1,0 +1,158 @@
+import { test, expect } from '@playwright/test';
+import { BASE_URL, PAGE_PATHS } from './constants';
+
+test.describe('Entered url has targetted country (US) and non supported language with no currency param and no user preference (TEST CASE 11)', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.clearCookies();
+  });
+
+  test.use({
+    locale: 'id-ID',
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/ab-us${path}`;
+    const expectedUrl = `${BASE_URL}/id-us${path}`;
+
+    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+      await page.goto(url);
+
+      await expect(page).toHaveURL(expectedUrl);
+      await expect(page.locator('text=USD').first()).toBeVisible();
+    });
+  }
+});
+
+test.describe('Entered url has targetted country (ID) and non supported language with no currency param and no user preference (TEST CASE 12)', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.clearCookies();
+  });
+
+  test.use({
+    locale: 'id-ID',
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/ab-id${path}`;
+    const expectedUrl = `${BASE_URL}/id-id${path}`;
+
+    test(`should redirect ${url} to ${expectedUrl} and display IDR currency`, async ({ page }) => {
+      await page.goto(url);
+
+      await expect(page).toHaveURL(expectedUrl);
+      await expect(page.locator('text=IDR').first()).toBeVisible();
+    });
+  }
+});
+
+test.describe('Entered url has targetted country (ID) and non supported language with currency param SGD and default browser locale (TEST CASE 13)', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.clearCookies();
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/ab-id${path}?currency=SGD`;
+    const expectedUrl = `${BASE_URL}/en-id${path}?currency=SGD`;
+
+    test(`should redirect ${url} to ${expectedUrl} and display SGD currency`, async ({ page }) => {
+      await page.goto(url);
+
+      await expect(page).toHaveURL(expectedUrl);
+      await expect(page.locator('text=SGD').first()).toBeVisible();
+    });
+  }
+});
+
+test.describe('Entered url has targetted country (US) and non supported language with userlang and currency cookie (TEST CASE 20)', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.addCookies([
+      {
+        name: 'userlang',
+        value: 'en',
+        domain: '.tiket.com',
+        path: '/',
+      },
+      {
+        name: 'tiket_currency',
+        value: 'USD',
+        domain: '.tiket.com',
+        path: '/',
+      },
+    ]);
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/ab-us${path}`;
+    const expectedUrl = `${BASE_URL}/en-us${path}`;
+
+    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+      await page.goto(url);
+
+      await expect(page).toHaveURL(expectedUrl);
+      await expect(page.locator('text=USD').first()).toBeVisible();
+    });
+  }
+});
+
+test.describe('Entered url has targetted country (ID) and non supported language with userlang and currency cookie (TEST CASE 21)', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.addCookies([
+      {
+        name: 'userlang',
+        value: 'en',
+        domain: '.tiket.com',
+        path: '/',
+      },
+      {
+        name: 'tiket_currency',
+        value: 'USD',
+        domain: '.tiket.com',
+        path: '/',
+      },
+    ]);
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/ab-id${path}`;
+    const expectedUrl = `${BASE_URL}/en-id${path}`;
+
+    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+      await page.goto(url);
+
+      await expect(page).toHaveURL(expectedUrl);
+      await expect(page.locator('text=USD').first()).toBeVisible();
+    });
+  }
+});
+
+test.describe('Entered url has targetted country (ID) with currency query param SGD but userlang and currency cookie override (TEST CASE 22)', () => {
+  test.beforeEach(async ({ context }) => {
+    await context.addCookies([
+      {
+        name: 'userlang',
+        value: 'en',
+        domain: '.tiket.com',
+        path: '/',
+      },
+      {
+        name: 'tiket_currency',
+        value: 'USD',
+        domain: '.tiket.com',
+        path: '/',
+      },
+    ]);
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/ab-id${path}?currency=SGD`;
+    const expectedUrl = `${BASE_URL}/en-id${path}`;
+
+    test(`should redirect ${url} to ${expectedUrl} and display USD currency (cookie overrides query param)`, async ({ page }) => {
+      await page.goto(url);
+
+      await expect(page).toHaveURL(expectedUrl);
+      await expect(page.locator('text=USD').first()).toBeVisible();
+    });
+  }
+});
+

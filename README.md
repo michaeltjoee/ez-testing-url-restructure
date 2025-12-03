@@ -28,6 +28,9 @@ pnpm exec playwright test
 ### Run specific test file
 
 ```bash
+# Non-targeted locale tests (TEST CASE 11, 12, 13, 20, 21, 22)
+pnpm exec playwright test nonTargetedLocale
+
 # Invalid path redirection tests (TEST CASE 41-43)
 pnpm exec playwright test invalidPathRedirection
 
@@ -91,6 +94,16 @@ environment=preprod
 
 ## Test Cases
 
+### Non-Targeted Locale (TEST CASE 11, 12, 13, 20, 21, 22)
+Tests for non-supported locale codes with various browser settings and cookies.
+
+- **TEST CASE 11**: `/ab-us` with browser locale `id-ID` redirects to `/id-us` with USD currency
+- **TEST CASE 12**: `/ab-id` with browser locale `id-ID` redirects to `/id-id` with IDR currency
+- **TEST CASE 13**: `/ab-id?currency=SGD` with default browser locale redirects to `/en-id?currency=SGD` with SGD currency
+- **TEST CASE 20**: `/ab-us` with `userlang=en` and `tiket_currency=USD` cookies redirects to `/en-us` with USD currency
+- **TEST CASE 21**: `/ab-id` with `userlang=en` and `tiket_currency=USD` cookies redirects to `/en-id` with USD currency
+- **TEST CASE 22**: `/ab-id?currency=SGD` with `userlang=en` and `tiket_currency=USD` cookies redirects to `/en-id` with USD currency (cookie overrides query param)
+
 ### Invalid Path Redirection (TEST CASE 41-43)
 Tests that invalid locale-country paths redirect to `/en-sg` with SGD currency.
 
@@ -118,12 +131,12 @@ pnpm exec playwright show-report
 
 ```
 ├── tests/
-│   ├── constants.ts                          # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
+│   ├── constants.ts                              # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
+│   ├── nonTargetedLocale(11,12,13,20,21,22).spec.ts
 │   ├── invalidPathRedirection(41-43).spec.ts
 │   ├── enDomain(44,45,46,47,50).spec.ts
 │   └── mDomain(48,49,51).spec.ts
-├── playwright.config.ts                      # Playwright configuration
+├── playwright.config.ts                          # Playwright configuration
 ├── package.json
 └── README.md
 ```
-
