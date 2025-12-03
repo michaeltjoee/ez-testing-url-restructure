@@ -206,21 +206,3 @@ pnpm exec playwright show-report
 ├── package.json
 └── README.md
 ```
-
-## Simulating User Geolocation
-
-The tests use Playwright's browser context options to simulate users from different regions:
-
-```typescript
-test.use({
-  // Set geolocation coordinates
-  geolocation: { longitude: 8.5417, latitude: 47.3769 },
-  permissions: ['geolocation'],
-  // Set browser locale
-  locale: 'zh-CN',
-  // Set timezone
-  timezoneId: 'Asia/Shanghai',
-});
-```
-
-**Note:** These settings affect browser-based geolocation APIs. For IP-based geolocation (used by Cloudflare), you need to use a VPN or proxy service. Set `isUsingJapanVPN=true` in `.env` when testing through a Japan VPN.
