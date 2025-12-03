@@ -22,12 +22,12 @@ When creating a new test case or test file:
    - If a new constant is needed, add it to `tests/constants.ts` first, then use it in tests
 
 4. **Browser context configuration** for simulating different user regions:
+   - **Only add these settings when explicitly requested by the user**
+   - By default, use the browser's default locale/timezone/geolocation settings
+   - When user requests to simulate a specific region, use:
    ```typescript
    test.use({
      locale: 'zh-CN',           // Browser locale
-     timezoneId: 'Asia/Shanghai', // Timezone
-     geolocation: { longitude: x, latitude: y },
-     permissions: ['geolocation'],
    });
    ```
 
