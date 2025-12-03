@@ -28,6 +28,9 @@ pnpm exec playwright test
 ### Run specific test file
 
 ```bash
+# Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10)
+pnpm exec playwright test nonTargetedCountryAndLocale
+
 # Non-targeted locale tests (TEST CASE 11, 12, 13, 20, 21, 22)
 pnpm exec playwright test nonTargetedLocale
 
@@ -83,7 +86,15 @@ Create a `.env` file in the project root:
 
 ```env
 environment=preprod
+isUsingJapanVPN=false
 ```
+
+### Environment Variables
+
+| Variable | Values | Default | Description |
+|----------|--------|---------|-------------|
+| `environment` | `preprod`, `production` | `preprod` | Target environment for tests |
+| `isUsingJapanVPN` | `true`, `false` | `false` | Set to `true` when running tests through a Japan VPN to simulate Japanese IP geolocation |
 
 ## Domain Configuration
 
@@ -93,6 +104,15 @@ environment=preprod
 | Production | en.tiket.com | m.tiket.com | tiket.com |
 
 ## Test Cases
+
+### Non-Targeted Country and Locale (TEST CASE 6, 7, 8, 9, 10)
+Tests for non-targeted countries with various locale and currency settings. These tests simulate users from different regions using browser locale/timezone settings.
+
+- **TEST CASE 6**: `/en-in` (India locale) redirects to `/en-sg` with SGD currency
+- **TEST CASE 7**: `/hi-in?currency=INR` with Chinese browser locale redirects to `/en-sg?currency=SGD`
+- **TEST CASE 8**: `/en-in?currency=SGD` redirects to `/en-us?currency=SGD` with SGD currency preserved
+- **TEST CASE 9**: Additional non-targeted country tests
+- **TEST CASE 10**: Additional locale/currency combination tests
 
 ### Non-Targeted Locale (TEST CASE 11, 12, 13, 20, 21, 22)
 Tests for non-supported locale codes with various browser settings and cookies.
@@ -131,12 +151,33 @@ pnpm exec playwright show-report
 
 ```
 ├── tests/
-│   ├── constants.ts                              # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
-│   ├── nonTargetedLocale(11,12,13,20,21,22).spec.ts
-│   ├── invalidPathRedirection(41-43).spec.ts
-│   ├── enDomain(44,45,46,47,50).spec.ts
-│   └── mDomain(48,49,51).spec.ts
-├── playwright.config.ts                          # Playwright configuration
+│   ├── constants.ts                                    # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
+│   ├── nonTargetedCountryAndLocale (6,7,8,9,10).spec.ts  # Non-targeted country/locale tests
+│   ├── nonTargetedLocale(11,12,13,20,21,22).spec.ts    # Non-targeted locale tests
+│   ├── invalidPathRedirection(41-43).spec.ts           # Invalid path redirection tests
+│   ├── enDomain(44,45,46,47,50).spec.ts                # EN domain tests
+│   └── mDomain(48,49,51).spec.ts                       # M domain tests
+├── playwright.config.ts                                # Playwright configuration
+├── .env                                                # Environment variables (git ignored)
+├── .env.sample                                         # Sample environment file
 ├── package.json
 └── README.md
 ```
+
+## Simulating User Geolocation
+
+The tests use Playwright's browser context options to simulate users from different regions:
+
+```typescript
+test.use({
+  // Set geolocation coordinates
+  geolocation: { longitude: 8.5417, latitude: 47.3769 },
+  permissions: ['geolocation'],
+  // Set browser locale
+  locale: 'zh-CN',
+  // Set timezone
+  timezoneId: 'Asia/Shanghai',
+});
+```
+
+**Note:** These settings affect browser-based geolocation APIs. For IP-based geolocation (used by Cloudflare), you need to use a VPN or proxy service. Set `isUsingJapanVPN=true` in `.env` when testing through a Japan VPN.
