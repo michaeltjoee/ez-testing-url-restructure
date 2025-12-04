@@ -3,7 +3,7 @@ import { BASE_URL, PAGE_PATHS, PAGE_EXPECTED_TEXT_EN } from "./constants";
 
 const shouldValidateText = process.env.validateText === "true";
 
-test.describe("User without initial preference visiting en-id (34,35,36)", () => {
+test.describe("TEST CASE: 34, 35, 36", () => {
   test.beforeEach(async ({ context }) => {
     // Clear all cookies - user has no initial preference
     await context.clearCookies();

@@ -3,7 +3,7 @@ import { BASE_URL, PAGE_PATHS, PAGE_EXPECTED_TEXT_EN } from "./constants";
 
 const shouldValidateText = process.env.validateText === "true";
 
-test.describe("Main Logic - en-us locale should display USD currency (TEST CASE 4)", () => {
+test.describe("TEST CASE: 4", () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -32,7 +32,7 @@ test.describe("Main Logic - en-us locale should display USD currency (TEST CASE 
   }
 });
 
-test.describe("Main Logic - en-us locale with currency=IDR query param (TEST CASE 5)", () => {
+test.describe("TEST CASE: 5", () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -61,7 +61,7 @@ test.describe("Main Logic - en-us locale with currency=IDR query param (TEST CAS
   }
 });
 
-test.describe("Main Logic - en-us locale with unknown currency=INR query param (TEST CASE 14)", () => {
+test.describe("TEST CASE: 14", () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -91,7 +91,7 @@ test.describe("Main Logic - en-us locale with unknown currency=INR query param (
   }
 });
 
-test.describe("Main Logic - en-us locale with tiket_currency=SGD cookie (TEST CASE 15)", () => {
+test.describe("TEST CASE: 15", () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -131,7 +131,7 @@ test.describe("Main Logic - en-us locale with tiket_currency=SGD cookie (TEST CA
   }
 });
 
-test.describe("Main Logic - en-us locale with currency=IDR query param and tiket_currency=SGD cookie (TEST CASE 16)", () => {
+test.describe("TEST CASE: 16", () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });

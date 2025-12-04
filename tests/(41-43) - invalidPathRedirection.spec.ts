@@ -13,12 +13,14 @@ const pathsToTest = INVALID_LOCALE_COUNTRY_CASES.flatMap(locale =>
   PAGE_PATHS.map(page => `${locale}${page}`)
 );
 
-for (const path of pathsToTest) {
-  const url = `${BASE_URL}${path}`;
-  test(`should redirect ${url} to ${EXPECTED_URL} and display SGD currency (TEST CASE 41 - 43)`, async ({ page }) => {
-    await page.goto(url);
+test.describe('TEST CASE: 41, 42, 43', () => {
+  for (const path of pathsToTest) {
+    const url = `${BASE_URL}${path}`;
+    test(`should redirect ${url} to ${EXPECTED_URL} and display SGD currency`, async ({ page }) => {
+      await page.goto(url);
 
-    await expect(page).toHaveURL(EXPECTED_URL);
-    await expect(page.locator('text=SGD').first()).toBeVisible();
-  });
-}
+      await expect(page).toHaveURL(EXPECTED_URL);
+      await expect(page.locator('text=SGD').first()).toBeVisible();
+    });
+  }
+});

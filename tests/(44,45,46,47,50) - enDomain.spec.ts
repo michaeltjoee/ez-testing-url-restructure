@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL, EN_DOMAIN, PAGE_PATHS } from './constants';
 
-test.describe('EN Domain Redirection (TEST CASE 44)', () => {
+test.describe('TEST CASE: 44', () => {
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}`;
     const expectedUrl = `${BASE_URL}/en-sg${path}`;
@@ -15,7 +15,7 @@ test.describe('EN Domain Redirection (TEST CASE 44)', () => {
   }
 });
 
-test.describe('EN Domain Redirection with userlang and currency cookie (TEST CASE 45)', () => {
+test.describe('TEST CASE: 45', () => {
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
@@ -46,7 +46,7 @@ test.describe('EN Domain Redirection with userlang and currency cookie (TEST CAS
   }
 });
 
-test.describe('EN Domain Redirection maintaining en-us locale-country (TEST CASE 46)', () => {
+test.describe('TEST CASE: 46', () => {
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}/en-us${path}`;
     const expectedUrl = `${BASE_URL}/en-us${path}`;
@@ -60,7 +60,7 @@ test.describe('EN Domain Redirection maintaining en-us locale-country (TEST CASE
   }
 });
 
-test.describe('EN Domain Redirection maintaining en-us locale-country, with userlang and currency cookie (TEST CASE 47)', () => {
+test.describe('TEST CASE: 47', () => {
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
@@ -92,7 +92,7 @@ test.describe('EN Domain Redirection maintaining en-us locale-country, with user
 });
 
 
-test.describe('EN Domain shows IDR when currency query param is set and no currency cookie (TEST CASE 50)', () => {
+test.describe('TEST CASE: 50', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });

@@ -8,7 +8,7 @@ import {
 
 const shouldValidateText = process.env.validateText === "true";
 
-test.describe("Logged out user with userlang=id and tiket_currency=IDR cookies (31,32,33)", () => {
+test.describe("TEST CASE: 31, 32, 33", () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
 

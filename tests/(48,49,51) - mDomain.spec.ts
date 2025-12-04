@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL, M_DOMAIN, PAGE_PATHS } from './constants';
 
-test.describe('M Domain Redirection (legacy domain) without cookies (TEST CASE 48)', () => {
+test.describe('TEST CASE: 48', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -19,7 +19,7 @@ test.describe('M Domain Redirection (legacy domain) without cookies (TEST CASE 4
   }
 });
 
-test.describe('M Domain Redirection with /en-us path (TEST CASE 49)', () => {
+test.describe('TEST CASE: 49', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -37,7 +37,7 @@ test.describe('M Domain Redirection with /en-us path (TEST CASE 49)', () => {
   }
 });
 
-test.describe('M Domain Redirection with currency query param (TEST CASE 51)', () => {
+test.describe('TEST CASE: 51', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });

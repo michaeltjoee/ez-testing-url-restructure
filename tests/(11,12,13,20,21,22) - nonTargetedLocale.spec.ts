@@ -3,7 +3,7 @@ import { BASE_URL, PAGE_PATHS, PAGE_EXPECTED_TEXT_ID, PAGE_EXPECTED_TEXT_EN } fr
 
 const shouldValidateText = process.env.validateText === "true";
 
-test.describe('Entered url has targetted country (US) and non supported language with no currency param and no user preference (TEST CASE 11)', () => {
+test.describe('TEST CASE: 11', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -30,7 +30,7 @@ test.describe('Entered url has targetted country (US) and non supported language
   }
 });
 
-test.describe('Entered url has targetted country (ID) and non supported language with no currency param and no user preference (TEST CASE 12)', () => {
+test.describe('TEST CASE: 12', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -57,7 +57,7 @@ test.describe('Entered url has targetted country (ID) and non supported language
   }
 });
 
-test.describe('Entered url has targetted country (ID) and non supported language with currency param SGD and default browser locale (TEST CASE 13)', () => {
+test.describe('TEST CASE: 13', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
   });
@@ -80,7 +80,7 @@ test.describe('Entered url has targetted country (ID) and non supported language
   }
 });
 
-test.describe('Entered url has targetted country (US) and non supported language with userlang and currency cookie (TEST CASE 20)', () => {
+test.describe('TEST CASE: 20', () => {
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
@@ -116,7 +116,7 @@ test.describe('Entered url has targetted country (US) and non supported language
   }
 });
 
-test.describe('Entered url has targetted country (ID) and non supported language with userlang and currency cookie (TEST CASE 21)', () => {
+test.describe('TEST CASE: 21', () => {
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
@@ -152,7 +152,7 @@ test.describe('Entered url has targetted country (ID) and non supported language
   }
 });
 
-test.describe('Entered url has targetted country (ID) with currency query param SGD but userlang and currency cookie override (TEST CASE 22)', () => {
+test.describe('TEST CASE: 22', () => {
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
