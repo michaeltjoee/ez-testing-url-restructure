@@ -65,6 +65,23 @@ When creating a new test case or test file:
 - Always verify both URL redirect and currency display in header
 - Use `page.locator('header').getByText('CURRENCY')` for currency assertions
 
+## Cookie Configuration
+
+When setting cookies in tests, **always use `.tiket.com`** as the cookie domain (not environment-specific domains like `.preprod.tiket.com`):
+
+```typescript
+await context.addCookies([
+  {
+    name: "tiket_currency",
+    value: "SGD",
+    domain: ".tiket.com",  // Always use .tiket.com
+    path: "/",
+  },
+]);
+```
+
+This applies to all cookies such as `tiket_currency`, `userlang`, etc.
+
 ## Adding New Constants
 
 When a test requires a new URL, path, or reusable value:
