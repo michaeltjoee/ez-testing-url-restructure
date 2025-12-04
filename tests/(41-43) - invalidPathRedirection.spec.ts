@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { BASE_URL, PAGE_PATHS } from './constants';
+import { BASE_URL, PAGE_PATHS, PAGE_EXPECTED_TEXT_EN } from './constants';
+
+const isUsingJapanVPN = process.env.isUsingJapanVPN === 'true';
+const shouldValidateText = process.env.validateText === 'true';
 
 const INVALID_LOCALE_COUNTRY_CASES = [
   '/a-b',       // 1 digit
@@ -7,20 +10,30 @@ const INVALID_LOCALE_COUNTRY_CASES = [
   '/abcd-abcd', // 4 digit
 ];
 
-const EXPECTED_URL = `${BASE_URL}/en-sg`;
+const expectedLocale = isUsingJapanVPN ? 'en-us' : 'en-sg';
+const expectedCurrency = isUsingJapanVPN ? 'JPY' : 'SGD';
 
-const pathsToTest = INVALID_LOCALE_COUNTRY_CASES.flatMap(locale => 
-  PAGE_PATHS.map(page => `${locale}${page}`)
-);
+const expectedUrl = isUsingJapanVPN
+  ? `${BASE_URL}/en-us?currency=JPY`
+  : `${BASE_URL}/en-sg`;
+
+const expectedText = PAGE_EXPECTED_TEXT_EN[''];
 
 test.describe('TEST CASE: 41, 42, 43', () => {
-  for (const path of pathsToTest) {
-    const url = `${BASE_URL}${path}`;
-    test(`should redirect to ${EXPECTED_URL} from ${url}`, async ({ page }) => {
-      await page.goto(url);
+  for (const invalidLocale of INVALID_LOCALE_COUNTRY_CASES) {
+    for (const path of PAGE_PATHS) {
+      const url = `${BASE_URL}${invalidLocale}${path}`;
 
-      await expect(page).toHaveURL(EXPECTED_URL);
-      await expect(page.locator('text=SGD').first()).toBeVisible();
-    });
+      test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
+        await page.goto(url);
+
+        await expect(page).toHaveURL(expectedUrl);
+        await expect(page.locator(`text=${expectedCurrency}`).first()).toBeVisible();
+
+        if (shouldValidateText) {
+          await expect(page.getByText(expectedText).first()).toBeVisible();
+        }
+      });
+    }
   }
 });
