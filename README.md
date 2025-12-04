@@ -43,8 +43,14 @@ pnpm exec playwright test
 ### Run specific test file
 
 ```bash
-# Main logic tests (en-us with USD currency)
-pnpm exec playwright test mainLogic
+# Main logic tests (TEST CASE 4, 5)
+pnpm exec playwright test "mainLogic"
+
+# Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10)
+pnpm exec playwright test "nonTargetedCountryAndLocale"
+
+# Non-targeted locale tests (TEST CASE 11, 12, 13, 20, 21, 22)
+pnpm exec playwright test "nonTargetedLocale"
 
 # Logged out user with initial preference tests (TEST CASE 31, 32, 33)
 pnpm exec playwright test "logoutLogin with initial preference"
@@ -52,20 +58,14 @@ pnpm exec playwright test "logoutLogin with initial preference"
 # User without initial preference tests (TEST CASE 34, 35, 36)
 pnpm exec playwright test "logoutLogin without initial preference"
 
-# Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10)
-pnpm exec playwright test nonTargetedCountryAndLocale
-
-# Non-targeted locale tests (TEST CASE 11, 12, 13, 20, 21, 22)
-pnpm exec playwright test nonTargetedLocale
-
 # Invalid path redirection tests (TEST CASE 41-43)
-pnpm exec playwright test invalidPathRedirection
+pnpm exec playwright test "invalidPathRedirection"
 
 # EN domain tests (TEST CASE 44, 45, 46, 47, 50)
-pnpm exec playwright test enDomain
+pnpm exec playwright test "enDomain"
 
 # M domain tests (TEST CASE 48, 49, 51)
-pnpm exec playwright test mDomain
+pnpm exec playwright test "mDomain"
 ```
 
 ### Run tests in headed mode (see browser)
@@ -191,15 +191,15 @@ pnpm exec playwright show-report
 
 ```
 ├── tests/
-│   ├── constants.ts                                              # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
-│   ├── mainLogic(4,5).spec.ts                                    # Main logic tests (en-us with USD)
-│   ├── logoutLogin with initial preference(31,32,33).spec.ts     # User with initial cookies tests
-│   ├── logoutLogin without initial preference(34,35,36).spec.ts  # User without initial cookies tests
-│   ├── nonTargetedCountryAndLocale (6,7,8,9,10).spec.ts          # Non-targeted country/locale tests
-│   ├── nonTargetedLocale(11,12,13,20,21,22).spec.ts              # Non-targeted locale tests
-│   ├── invalidPathRedirection(41-43).spec.ts                     # Invalid path redirection tests
-│   ├── enDomain(44,45,46,47,50).spec.ts                          # EN domain tests
-│   └── mDomain(48,49,51).spec.ts                                 # M domain tests
+│   ├── constants.ts                                                  # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
+│   ├── (4,5) - mainLogic.spec.ts                                     # Main logic tests (en-us with USD)
+│   ├── (6,7,8,9,10) - nonTargetedCountryAndLocale.spec.ts            # Non-targeted country/locale tests
+│   ├── (11,12,13,20,21,22) - nonTargetedLocale.spec.ts               # Non-targeted locale tests
+│   ├── (31,32,33) - logoutLogin with initial preference.spec.ts      # User with initial cookies tests
+│   ├── (34,35,36) - logoutLogin without initial preference.spec.ts   # User without initial cookies tests
+│   ├── (41-43) - invalidPathRedirection.spec.ts                      # Invalid path redirection tests
+│   ├── (44,45,46,47,50) - enDomain.spec.ts                           # EN domain tests
+│   └── (48,49,51) - mDomain.spec.ts                                  # M domain tests
 ├── playwright.config.ts                                # Playwright configuration
 ├── .env                                                # Environment variables (git ignored)
 ├── .env.sample                                         # Sample environment file
