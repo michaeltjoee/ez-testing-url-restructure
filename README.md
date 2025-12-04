@@ -66,6 +66,9 @@ pnpm exec playwright test "enDomain"
 
 # M domain tests (TEST CASE 48, 49, 51)
 pnpm exec playwright test "mDomain"
+
+# Case-insensitive locale redirect tests
+pnpm exec playwright test "important"
 ```
 
 ### Run tests in headed mode (see browser)
@@ -187,6 +190,13 @@ Tests that invalid locale-country paths redirect to `/en-sg` with SGD currency.
 - **TEST CASE 49**: M domain with `/en-us` path redirects to `/en-us` with USD currency
 - **TEST CASE 51**: M domain with `?currency=IDR` query param redirects to `/en-sg?currency=IDR` with IDR currency
 
+### Case-Insensitive Locale Redirect
+Tests that uppercase locale-country codes redirect to lowercase.
+
+- `/EN-US` should redirect to `/en-us` with USD currency
+- `/ID-ID` should redirect to `/id-id` with IDR currency
+- Tests all page paths (home, explore, voucher-box, promo, destination)
+
 ## View Test Report
 
 After running tests, view the HTML report:
@@ -207,7 +217,8 @@ pnpm exec playwright show-report
 │   ├── (34,35,36) - logoutLogin without initial preference.spec.ts   # User without initial cookies tests
 │   ├── (41-43) - invalidPathRedirection.spec.ts                      # Invalid path redirection tests
 │   ├── (44,45,46,47,50) - enDomain.spec.ts                           # EN domain tests
-│   └── (48,49,51) - mDomain.spec.ts                                  # M domain tests
+│   ├── (48,49,51) - mDomain.spec.ts                                  # M domain tests
+│   └── important.spec.ts                                             # Case-insensitive locale redirect tests
 ├── playwright.config.ts                                # Playwright configuration
 ├── .env                                                # Environment variables (git ignored)
 ├── .env.sample                                         # Sample environment file
