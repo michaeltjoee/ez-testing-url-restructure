@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL, M_DOMAIN, PAGE_PATHS } from './constants';
 
+// TODO: Support for Japan VPN
 test.describe('TEST CASE: 48', () => {
   test.beforeEach(async ({ context }) => {
     await context.clearCookies();
