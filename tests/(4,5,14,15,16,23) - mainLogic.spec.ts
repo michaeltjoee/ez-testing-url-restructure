@@ -12,7 +12,7 @@ test.describe("TEST CASE: 4", () => {
     const url = `${BASE_URL}/en-us${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should stay on ${url} and display USD currency in header`, async ({
+    test(`should redirect to ${url} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -41,7 +41,7 @@ test.describe("TEST CASE: 5", () => {
     const url = `${BASE_URL}/en-us${path}?currency=IDR`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should stay on ${url} and display IDR currency in header`, async ({
+    test(`should redirect to ${url} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -71,7 +71,7 @@ test.describe("TEST CASE: 14", () => {
     const expectedUrl = `${BASE_URL}/en-us${path}?currency=USD`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect from ${initialUrl} to ${expectedUrl} and display USD currency in header`, async ({
+    test(`should redirect to ${expectedUrl} from ${initialUrl}`, async ({
       page,
     }) => {
       await page.goto(initialUrl);
@@ -100,7 +100,7 @@ test.describe("TEST CASE: 15", () => {
     const url = `${BASE_URL}/en-us${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should stay on ${url} and display SGD currency from cookie in header`, async ({
+    test(`should redirect to ${url} from ${url}`, async ({
       context,
       page,
     }) => {
@@ -141,7 +141,7 @@ test.describe("TEST CASE: 16", () => {
     const expectedUrl = `${BASE_URL}/en-us${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect from ${initialUrl} to ${expectedUrl} and display SGD currency from cookie (cookie overrides query param)`, async ({
+    test(`should redirect to ${expectedUrl} from ${initialUrl}`, async ({
       context,
       page,
     }) => {
@@ -162,6 +162,53 @@ test.describe("TEST CASE: 16", () => {
 
       // Expect SGD currency to be visible in the header (cookie overrides query param)
       await expect(page.locator("header").getByText("SGD")).toBeVisible();
+
+      // Text validation (only when validateText=true)
+      if (shouldValidateText) {
+        // Expect path-specific text to be visible
+        await expect(page.getByText(expectedText).first()).toBeVisible();
+      }
+    });
+  }
+});
+
+test.describe("TEST CASE: 23", () => {
+  test.beforeEach(async ({ context }) => {
+    await context.clearCookies();
+  });
+
+  for (const path of PAGE_PATHS) {
+    const initialUrl = `${BASE_URL}/en-us${path}?currency=INR`;
+    const expectedUrl = `${BASE_URL}/en-us${path}`;
+    const expectedText = PAGE_EXPECTED_TEXT_EN[path];
+
+    test(`should redirect to ${expectedUrl} from ${initialUrl}`, async ({
+      context,
+      page,
+    }) => {
+      // Set userlang and tiket_currency cookies before visiting the page
+      await context.addCookies([
+        {
+          name: "userlang",
+          value: "en",
+          domain: ".tiket.com",
+          path: "/",
+        },
+        {
+          name: "tiket_currency",
+          value: "USD",
+          domain: ".tiket.com",
+          path: "/",
+        },
+      ]);
+
+      await page.goto(initialUrl);
+
+      // Should redirect to URL without currency query param (cookie takes precedence)
+      await expect(page).toHaveURL(expectedUrl);
+
+      // Expect USD currency to be visible in the header (cookie overrides query param)
+      await expect(page.locator("header").getByText("USD")).toBeVisible();
 
       // Text validation (only when validateText=true)
       if (shouldValidateText) {

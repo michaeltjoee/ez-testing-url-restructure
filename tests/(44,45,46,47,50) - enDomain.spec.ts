@@ -6,7 +6,7 @@ test.describe('TEST CASE: 44', () => {
     const url = `${EN_DOMAIN}${path}`;
     const expectedUrl = `${BASE_URL}/en-sg${path}`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display SGD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -37,7 +37,7 @@ test.describe('TEST CASE: 45', () => {
     const url = `${EN_DOMAIN}${path}`;
     const expectedUrl = `${BASE_URL}/id-sg${path}`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display IDR currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -51,7 +51,7 @@ test.describe('TEST CASE: 46', () => {
     const url = `${EN_DOMAIN}/en-us${path}`;
     const expectedUrl = `${BASE_URL}/en-us${path}`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -82,7 +82,7 @@ test.describe('TEST CASE: 47', () => {
     const url = `${EN_DOMAIN}/en-us${path}`;
     const expectedUrl = `${BASE_URL}/id-us${path}`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display IDR currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -101,7 +101,7 @@ test.describe('TEST CASE: 50', () => {
     const url = `${EN_DOMAIN}${path}?currency=IDR`;
     const expectedUrl = `${BASE_URL}/en-sg${path}?currency=IDR`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display IDR currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);

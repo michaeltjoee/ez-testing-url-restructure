@@ -43,10 +43,10 @@ pnpm exec playwright test
 ### Run specific test file
 
 ```bash
-# Main logic tests (TEST CASE 4, 5, 14, 15, 16)
+# Main logic tests (TEST CASE 4, 5, 14, 15, 16, 23)
 pnpm exec playwright test "mainLogic"
 
-# Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10, 18, 19)
+# Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10, 17, 18, 19)
 pnpm exec playwright test "nonTargetedCountryAndLocale"
 
 # Non-targeted locale tests (TEST CASE 11, 12, 13, 20, 21, 22)
@@ -125,7 +125,7 @@ validateText=false
 
 ## Test Cases
 
-### Main Logic - en-us with USD Currency (TEST CASE 4, 5, 14, 15, 16)
+### Main Logic - en-us with USD Currency (TEST CASE 4, 5, 14, 15, 16, 23)
 Tests that `/en-us` locale stays on the same URL and displays USD currency in the header.
 
 - **TEST CASE 4**: `/en-us` should stay on `/en-us` and display USD currency
@@ -133,6 +133,7 @@ Tests that `/en-us` locale stays on the same URL and displays USD currency in th
 - **TEST CASE 14**: `/en-us?currency=INR` (unknown currency) should redirect to `/en-us?currency=USD` and display USD currency
 - **TEST CASE 15**: `/en-us` with `tiket_currency=SGD` cookie should stay on `/en-us` and display SGD currency from cookie
 - **TEST CASE 16**: `/en-us?currency=IDR` with `tiket_currency=SGD` cookie should redirect to `/en-us` (currency param removed) and display SGD currency (cookie overrides query param)
+- **TEST CASE 23**: `/en-us?currency=INR` with `userlang=en` and `tiket_currency=USD` cookies should redirect to `/en-us` (currency param removed) and display USD currency (cookie overrides unknown currency)
 - Tests all page paths (home, explore, voucher-box, promo, destination)
 
 ### Logged Out User with Initial Preference (TEST CASE 31, 32, 33)
@@ -149,7 +150,7 @@ Tests for users without any initial cookies visiting `/en-id`.
 - Simulate login (userlang=en, tiket_currency=IDR) → stays on `/en-id` with IDR currency
 - Refresh page → stays on `/en-id` with IDR currency (cookies persist)
 
-### Non-Targeted Country and Locale (TEST CASE 6, 7, 8, 9, 10, 18, 19)
+### Non-Targeted Country and Locale (TEST CASE 6, 7, 8, 9, 10, 17, 18, 19)
 Tests for non-targeted countries with various locale and currency settings. These tests simulate users from different regions using browser locale/timezone settings.
 
 - **TEST CASE 6**: `/en-in` (India locale) redirects to `/en-sg` with SGD currency
@@ -157,6 +158,7 @@ Tests for non-targeted countries with various locale and currency settings. Thes
 - **TEST CASE 8**: `/en-in?currency=SGD` redirects to `/en-us?currency=SGD` with SGD currency preserved
 - **TEST CASE 9**: Additional non-targeted country tests
 - **TEST CASE 10**: Additional locale/currency combination tests
+- **TEST CASE 17**: `/en-in` with `userlang=en` and `tiket_currency=SGD` cookies redirects to `/en-us` (with Japan VPN) or `/en-sg` with SGD currency
 - **TEST CASE 18**: `/en-au` (Australia) with Japan VPN redirects to `/en-us?currency=JPY` with JPY currency
 - **TEST CASE 19**: `/en-in?currency=SGD` with Japan VPN redirects to `/en-us` (currency param removed) with SGD currency
 
@@ -198,8 +200,8 @@ pnpm exec playwright show-report
 ```
 ├── tests/
 │   ├── constants.ts                                                  # Shared constants (BASE_URL, EN_DOMAIN, M_DOMAIN, PAGE_PATHS)
-│   ├── (4,5,14,15,16) - mainLogic.spec.ts                            # Main logic tests (en-us with USD)
-│   ├── (6,7,8,9,10,18,19) - nonTargetedCountryAndLocale.spec.ts      # Non-targeted country/locale tests
+│   ├── (4,5,14,15,16,23) - mainLogic.spec.ts                         # Main logic tests (en-us with USD)
+│   ├── (6,7,8,9,10,17,18,19) - nonTargetedCountryAndLocale.spec.ts   # Non-targeted country/locale tests
 │   ├── (11,12,13,20,21,22) - nonTargetedLocale.spec.ts               # Non-targeted locale tests
 │   ├── (31,32,33) - logoutLogin with initial preference.spec.ts      # User with initial cookies tests
 │   ├── (34,35,36) - logoutLogin without initial preference.spec.ts   # User without initial cookies tests

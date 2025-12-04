@@ -16,7 +16,7 @@ const pathsToTest = INVALID_LOCALE_COUNTRY_CASES.flatMap(locale =>
 test.describe('TEST CASE: 41, 42, 43', () => {
   for (const path of pathsToTest) {
     const url = `${BASE_URL}${path}`;
-    test(`should redirect ${url} to ${EXPECTED_URL} and display SGD currency`, async ({ page }) => {
+    test(`should redirect to ${EXPECTED_URL} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(EXPECTED_URL);

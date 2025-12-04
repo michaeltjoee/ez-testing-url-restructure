@@ -14,7 +14,7 @@ test.describe("TEST CASE: 34, 35, 36", () => {
     const expectedUrl = `${BASE_URL}/en-id${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should stay on ${url} with IDR currency, then maintain en-id after login`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
       context,
     }) => {

@@ -17,7 +17,7 @@ test.describe('TEST CASE: 11', () => {
     const expectedUrl = `${BASE_URL}/id-us${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_ID[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -44,7 +44,7 @@ test.describe('TEST CASE: 12', () => {
     const expectedUrl = `${BASE_URL}/id-id${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_ID[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display IDR currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -67,7 +67,7 @@ test.describe('TEST CASE: 13', () => {
     const expectedUrl = `${BASE_URL}/en-id${path}?currency=SGD`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display SGD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -103,7 +103,7 @@ test.describe('TEST CASE: 20', () => {
     const expectedUrl = `${BASE_URL}/en-us${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -139,7 +139,7 @@ test.describe('TEST CASE: 21', () => {
     const expectedUrl = `${BASE_URL}/en-id${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -175,7 +175,7 @@ test.describe('TEST CASE: 22', () => {
     const expectedUrl = `${BASE_URL}/en-id${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display USD currency (cookie overrides query param)`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);

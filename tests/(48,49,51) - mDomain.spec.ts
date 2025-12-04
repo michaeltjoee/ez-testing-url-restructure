@@ -10,7 +10,7 @@ test.describe('TEST CASE: 48', () => {
     const url = `${M_DOMAIN}${path}`;
     const expectedUrl = `${BASE_URL}/en-sg${path}`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display SGD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -28,7 +28,7 @@ test.describe('TEST CASE: 49', () => {
     const url = `${M_DOMAIN}/en-us${path}`;
     const expectedUrl = `${BASE_URL}/en-us${path}`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display USD currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
@@ -46,7 +46,7 @@ test.describe('TEST CASE: 51', () => {
     const url = `${M_DOMAIN}${path}?currency=IDR`;
     const expectedUrl = `${BASE_URL}/en-sg${path}?currency=IDR`;
 
-    test(`should redirect ${url} to ${expectedUrl} and display IDR currency`, async ({ page }) => {
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);

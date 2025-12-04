@@ -19,7 +19,7 @@ test.describe("TEST CASE: 6", () => {
     const expectedUrl = `${BASE_URL}/${expectedLocale}${path}${currencyParam}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display ${expectedCurrency} currency`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -47,7 +47,7 @@ test.describe("TEST CASE: 7, 8", () => {
     const expectedUrl = `${BASE_URL}/${expectedLocale}${path}${currencyParam}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display ${expectedCurrency} currency`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -79,7 +79,7 @@ test.describe("TEST CASE: 9", () => {
     const expectedUrl = `${BASE_URL}/${expectedLocale}${path}?currency=${expectedCurrency}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display ${expectedCurrency} in header`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -112,7 +112,7 @@ test.describe("TEST CASE: 10", () => {
       : `${BASE_URL}/en-sg${path}?currency=SGD`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display SGD in header`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -121,6 +121,50 @@ test.describe("TEST CASE: 10", () => {
       await expect(page).toHaveURL(expectedUrl);
 
       // Expect SGD currency to be visible in the header (currency param preserved)
+      await expect(page.locator("header").getByText("SGD")).toBeVisible();
+
+      if (shouldValidateText) {
+        await expect(page.getByText(expectedText).first()).toBeVisible();
+      }
+    });
+  }
+});
+
+test.describe("TEST CASE: 17", () => {
+  test.beforeEach(async ({ context }) => {
+    await context.addCookies([
+      {
+        name: "userlang",
+        value: "en",
+        domain: ".tiket.com",
+        path: "/",
+      },
+      {
+        name: "tiket_currency",
+        value: "SGD",
+        domain: ".tiket.com",
+        path: "/",
+      },
+    ]);
+  });
+
+  for (const path of PAGE_PATHS) {
+    const url = `${BASE_URL}/en-in${path}`;
+    // When Japan VPN is active, redirects to en-us; otherwise redirects to en-sg
+    const expectedUrl = isUsingJapanVPN
+      ? `${BASE_URL}/en-us${path}`
+      : `${BASE_URL}/en-sg${path}`;
+    const expectedText = PAGE_EXPECTED_TEXT_EN[path];
+
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
+      page,
+    }) => {
+      await page.goto(url);
+
+      // Expect redirect to expected locale
+      await expect(page).toHaveURL(expectedUrl);
+
+      // Expect SGD currency to be visible in the header (from cookie)
       await expect(page.locator("header").getByText("SGD")).toBeVisible();
 
       if (shouldValidateText) {
@@ -143,7 +187,7 @@ test.describe("TEST CASE: 18", () => {
     const expectedCurrencyDisplay = isUsingJapanVPN ? "JPY" : "SGD";
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display ${expectedCurrencyDisplay} in header`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
@@ -176,7 +220,7 @@ test.describe("TEST CASE: 19", () => {
       : `${BASE_URL}/en-sg${path}?currency=SGD`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
-    test(`should redirect ${url} to ${expectedUrl} and display SGD in header`, async ({
+    test(`should redirect to ${expectedUrl} from ${url}`, async ({
       page,
     }) => {
       await page.goto(url);
