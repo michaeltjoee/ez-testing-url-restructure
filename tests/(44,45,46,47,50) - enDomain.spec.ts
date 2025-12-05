@@ -1,17 +1,21 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL, EN_DOMAIN, PAGE_PATHS } from './constants';
 
-// TODO: Support for Japan VPN
+const isUsingJapanVPN = process.env.isUsingJapanVPN === 'true';
+
 test.describe('TEST CASE: 44', () => {
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}`;
-    const expectedUrl = `${BASE_URL}/en-sg${path}`;
+    const expectedUrl = isUsingJapanVPN
+      ? `${BASE_URL}/en-us${path}?currency=JPY`
+      : `${BASE_URL}/en-sg${path}`;
+    const expectedCurrency = isUsingJapanVPN ? 'JPY' : 'SGD';
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
 
       await expect(page).toHaveURL(expectedUrl);
-      await expect(page.locator('text=SGD').first()).toBeVisible();
+      await expect(page.locator(`text=${expectedCurrency}`).first()).toBeVisible();
     });
   }
 });
@@ -36,7 +40,8 @@ test.describe('TEST CASE: 45', () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}`;
-    const expectedUrl = `${BASE_URL}/id-sg${path}`;
+    const countryCode = isUsingJapanVPN ? 'us' : 'sg';
+    const expectedUrl = `${BASE_URL}/id-${countryCode}${path}`;
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
@@ -100,7 +105,8 @@ test.describe('TEST CASE: 50', () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}?currency=IDR`;
-    const expectedUrl = `${BASE_URL}/en-sg${path}?currency=IDR`;
+    const countryCode = isUsingJapanVPN ? 'us' : 'sg';
+    const expectedUrl = `${BASE_URL}/en-${countryCode}${path}?currency=IDR`;
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
       await page.goto(url);
