@@ -87,12 +87,18 @@ pnpm exec playwright test --project=webkit
 
 ## Environment Configuration
 
-Tests support two environments: **preprod** (default) and **production**.
+Tests support three environments: **preprod** (default), **staging**, and **production**.
 
 ### Preprod (default)
 
 ```bash
 pnpm exec playwright test
+```
+
+### Staging
+
+```bash
+environment=staging pnpm exec playwright test
 ```
 
 ### Production
@@ -115,7 +121,7 @@ validateText=false
 
 | Variable | Values | Default | Description |
 |----------|--------|---------|-------------|
-| `environment` | `preprod`, `production` | `preprod` | Target environment for tests |
+| `environment` | `preprod`, `staging`, `production` | `preprod` | Target environment for tests |
 | `isUsingJapanVPN` | `true`, `false` | `false` | Set to `true` when running tests through a Japan VPN to simulate Japanese IP geolocation |
 | `validateText` | `true`, `false` | `false` | Set to `true` to enable path-specific text validation (e.g., "Enjoy our great ongoing promos!" on /promo page) |
 
@@ -124,6 +130,7 @@ validateText=false
 | Environment | EN Domain | M Domain | Base URL |
 |-------------|-----------|----------|----------|
 | Preprod | en.preprod.tiket.com | m.preprod.tiket.com | preprod.tiket.com |
+| Staging | en.gatotkaca.tiket.com | m.gatotkaca.tiket.com | gatotkaca.tiket.com |
 | Production | en.tiket.com | m.tiket.com | tiket.com |
 
 ## Test Cases

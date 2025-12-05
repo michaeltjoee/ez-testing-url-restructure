@@ -1,15 +1,25 @@
 const env = process.env.environment || "preprod";
 
 export const BASE_URL =
-  env === "production" ? "https://www.tiket.com" : "https://preprod.tiket.com";
+  env === "production"
+    ? "https://www.tiket.com"
+    : env === "staging"
+      ? "https://gatotkaca.tiket.com"
+      : "https://preprod.tiket.com";
 
 export const EN_DOMAIN =
   env === "production"
     ? "https://en.tiket.com"
-    : "https://en.preprod.tiket.com";
+    : env === "staging"
+      ? "https://en.gatotkaca.tiket.com"
+      : "https://en.preprod.tiket.com";
 
 export const M_DOMAIN =
-  env === "production" ? "https://m.tiket.com" : "https://m.preprod.tiket.com";
+  env === "production"
+    ? "https://m.tiket.com"
+    : env === "staging"
+      ? "https://m.gatotkaca.tiket.com"
+      : "https://m.preprod.tiket.com";
 
 const EXPLORE_PATH =
   env === "production" ? "/explore/flight-tiket-best-deals" : "/explore/japan";

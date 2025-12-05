@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL, EN_DOMAIN, PAGE_PATHS } from './constants';
 
+// TODO: Support for Japan VPN
 test.describe('TEST CASE: 44', () => {
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}`;
