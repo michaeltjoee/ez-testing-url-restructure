@@ -1,0 +1,23 @@
+{
+  "domain": "tiket.com",
+  "version": "8",
+  "subdomain": [
+    "m.gatotkaca",
+    "gatotkaca",
+    "en.gatotkaca",
+    "mpayment-gatotkaca",
+    "payment-gatotkaca"
+  ],
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "R8EMKFHGH9.com.mobile.ios.Tiket.dev",
+          "R8EMKFHGH9.com.mobile.ios.Tiket.preprod",
+          "R8EMKFHGH9.com.mobile.ios.Tiket"
+        ],
+        "components": [{ "#": "no_universal_links", "exclude": true }, { "/": "/*" }]
+      }
+    ]
+  }
+}

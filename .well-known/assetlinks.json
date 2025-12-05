@@ -1,0 +1,44 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tiket.gits",
+      "sha256_cert_fingerprints": [
+        "6E:ED:AA:14:17:B7:9A:02:B6:78:C9:59:09:64:31:F3:9C:7B:C0:9B:6F:7C:1A:1C:50:80:72:1A:EE:9B:6C:85"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "web",
+      "site": "https://www.tiket.com"
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "web",
+      "site": "https://m.tiket.com"
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tiket.lite",
+      "sha256_cert_fingerprints": [
+        "82:A7:F0:6C:95:91:6D:38:0C:3A:23:EF:F6:E1:F4:FE:FF:B7:BB:DD:22:02:4E:95:B5:14:E5:A3:73:40:E7:06"
+      ]
+    }
+  }
+]

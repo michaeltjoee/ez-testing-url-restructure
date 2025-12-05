@@ -69,6 +69,9 @@ pnpm exec playwright test "mDomain"
 
 # Case-insensitive locale redirect tests
 pnpm exec playwright test "important"
+
+# Apple App Site Association (AASA) tests
+pnpm exec playwright test "aasa"
 ```
 
 ### Run tests in headed mode (see browser)
@@ -204,6 +207,12 @@ Tests that uppercase locale-country codes redirect to lowercase.
 - `/ID-ID` should redirect to `/id-id` with IDR currency
 - Tests all page paths (home, explore, voucher-box, promo, destination)
 
+### Apple App Site Association (AASA)
+Tests that the `/.well-known/apple-app-site-association` endpoint returns the correct JSON response for the current environment.
+
+- Verifies response matches expected AASA configuration for preprod, staging, or production
+- Validates correct appIDs, subdomains, and applinks configuration
+
 ## View Test Report
 
 After running tests, view the HTML report:
@@ -225,7 +234,8 @@ pnpm exec playwright show-report
 │   ├── (41-43) - invalidPathRedirection.spec.ts                      # Invalid path redirection tests
 │   ├── (44,45,46,47,50) - enDomain.spec.ts                           # EN domain tests
 │   ├── (48,49,51) - mDomain.spec.ts                                  # M domain tests
-│   └── important.spec.ts                                             # Case-insensitive locale redirect tests
+│   ├── important.spec.ts                                             # Case-insensitive locale redirect tests
+│   └── aasa.spec.ts                                                  # Apple App Site Association tests
 ├── playwright.config.ts                                # Playwright configuration
 ├── .env                                                # Environment variables (git ignored)
 ├── .env.sample                                         # Sample environment file

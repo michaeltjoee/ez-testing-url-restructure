@@ -1,4 +1,4 @@
-const env = process.env.environment || "preprod";
+export const env = process.env.environment || "preprod";
 
 export const BASE_URL =
   env === "production"

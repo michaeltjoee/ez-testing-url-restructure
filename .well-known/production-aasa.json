@@ -1,0 +1,13 @@
+{
+  "domain": "tiket.com",
+  "version": "8",
+  "subdomain": ["m", "www", "en", "mpayment", "payment"],
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["R8EMKFHGH9.com.mobile.ios.Tiket"],
+        "components": [{ "#": "no_universal_links", "exclude": true }, { "/": "/*" }]
+      }
+    ]
+  }
+}
