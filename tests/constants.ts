@@ -4,26 +4,28 @@ export const BASE_URL =
   env === "production"
     ? "https://www.tiket.com"
     : env === "staging"
-      ? "https://gatotkaca.tiket.com"
-      : "https://preprod.tiket.com";
+    ? "https://gatotkaca.tiket.com"
+    : "https://preprod.tiket.com";
 
 export const EN_DOMAIN =
   env === "production"
     ? "https://en.tiket.com"
     : env === "staging"
-      ? "https://en.gatotkaca.tiket.com"
-      : "https://en.preprod.tiket.com";
+    ? "https://en.gatotkaca.tiket.com"
+    : "https://en.preprod.tiket.com";
 
 export const M_DOMAIN =
   env === "production"
     ? "https://m.tiket.com"
     : env === "staging"
-      ? "https://m.gatotkaca.tiket.com"
-      : "https://m.preprod.tiket.com";
+    ? "https://m.gatotkaca.tiket.com"
+    : "https://m.preprod.tiket.com";
 
 // Production expected values for non-targeted country/locale tests (from .env)
-export const PRODUCTION_EXPECTED_COUNTRY_CODE = process.env.productionExpectedCountryCode || "id";
-export const PRODUCTION_EXPECTED_CURRENCY = process.env.productionExpectedCurrency || "IDR";
+export const PRODUCTION_EXPECTED_COUNTRY_CODE =
+  process.env.productionExpectedCountryCode || "id";
+export const PRODUCTION_EXPECTED_CURRENCY =
+  process.env.productionExpectedCurrency || "IDR";
 
 const EXPLORE_PATH =
   env === "production" ? "/explore/flight-tiket-best-deals" : "/explore/japan";
@@ -33,6 +35,7 @@ export const PAGE_PATHS = [
   EXPLORE_PATH,
   "/voucher-box",
   "/promo",
+  "/promo/campaign/diskon-pengguna-baru",
   "/destination/japan",
 ];
 
@@ -42,6 +45,7 @@ export const PAGE_EXPECTED_TEXT_EN: Record<string, string> = {
   [EXPLORE_PATH]: "Register", // Explore page
   "/voucher-box": "Use your vouchers to save even more on transactions!", // Voucher box page
   "/promo": "Enjoy our great ongoing promos!", // Promo page
+  "/promo/campaign/diskon-pengguna-baru": "Register",
   "/destination/japan": `Register`, // Destination page
 };
 
@@ -49,7 +53,9 @@ export const PAGE_EXPECTED_TEXT_EN: Record<string, string> = {
 export const PAGE_EXPECTED_TEXT_ID: Record<string, string> = {
   "": "Hai kamu, mau ke mana?", // Home page
   [EXPLORE_PATH]: "Masuk", // Explore page
-  "/voucher-box": "Pakai voucher yang kamu punya biar transaksi jadi lebih hemat!", // Voucher box page
+  "/voucher-box":
+    "Pakai voucher yang kamu punya biar transaksi jadi lebih hemat!", // Voucher box page
   "/promo": "Nikmati berbagai promo terbaik saat ini!", // Promo page
+  "/promo/campaign/diskon-pengguna-baru": "Daftar",
   "/destination/japan": `Daftar`, // Destination page
 };
