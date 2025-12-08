@@ -1,12 +1,30 @@
 import { test, expect } from "@playwright/test";
-import { BASE_URL, PAGE_PATHS, PAGE_EXPECTED_TEXT_EN } from "./constants";
+import {
+  BASE_URL,
+  PAGE_PATHS,
+  PAGE_EXPECTED_TEXT_EN,
+  env,
+  PRODUCTION_EXPECTED_COUNTRY_CODE,
+  PRODUCTION_EXPECTED_CURRENCY,
+} from "./constants";
 
 const shouldValidateText = process.env.validateText === "true";
 const isUsingJapanVPN = process.env.isUsingJapanVPN === "true";
 
 // When Japan VPN is active, redirects go to en-us with JPY currency
-const expectedLocale = isUsingJapanVPN ? "en-us" : "en-sg";
-const expectedCurrency = isUsingJapanVPN ? "JPY" : "SGD";
+// In production, redirects go to en-{PRODUCTION_EXPECTED_COUNTRY_CODE} with PRODUCTION_EXPECTED_CURRENCY
+const expectedLocale =
+  env === "production"
+    ? `en-${PRODUCTION_EXPECTED_COUNTRY_CODE}`
+    : isUsingJapanVPN
+      ? "en-us"
+      : "en-sg";
+const expectedCurrency =
+  env === "production"
+    ? PRODUCTION_EXPECTED_CURRENCY
+    : isUsingJapanVPN
+      ? "JPY"
+      : "SGD";
 
 test.describe("TEST CASE: 6", () => {
   test.beforeEach(async ({ context }) => {
@@ -106,10 +124,13 @@ test.describe("TEST CASE: 10", () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${BASE_URL}/en-in${path}?currency=SGD`;
-    // When Japan VPN is active, query param is removed and redirects to en-us
-    const expectedUrl = isUsingJapanVPN
-      ? `${BASE_URL}/en-us${path}?currency=SGD`
-      : `${BASE_URL}/en-sg${path}?currency=SGD`;
+    // In production, redirects to expected locale; when Japan VPN is active, redirects to en-us; otherwise en-sg
+    const expectedUrl =
+      env === "production"
+        ? `${BASE_URL}/${expectedLocale}${path}?currency=SGD`
+        : isUsingJapanVPN
+          ? `${BASE_URL}/en-us${path}?currency=SGD`
+          : `${BASE_URL}/en-sg${path}?currency=SGD`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({
@@ -150,10 +171,13 @@ test.describe("TEST CASE: 17", () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${BASE_URL}/en-in${path}`;
-    // When Japan VPN is active, redirects to en-us; otherwise redirects to en-sg
-    const expectedUrl = isUsingJapanVPN
-      ? `${BASE_URL}/en-us${path}`
-      : `${BASE_URL}/en-sg${path}`;
+    // In production, redirects to expected locale; when Japan VPN is active, redirects to en-us; otherwise en-sg
+    const expectedUrl =
+      env === "production"
+        ? `${BASE_URL}/${expectedLocale}${path}`
+        : isUsingJapanVPN
+          ? `${BASE_URL}/en-us${path}`
+          : `${BASE_URL}/en-sg${path}`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({
@@ -181,10 +205,19 @@ test.describe("TEST CASE: 18", () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${BASE_URL}/en-au${path}`;
-    const expectedUrl = isUsingJapanVPN
-      ? `${BASE_URL}/en-us${path}?currency=JPY`
-      : `${BASE_URL}/en-sg${path}`;
-    const expectedCurrencyDisplay = isUsingJapanVPN ? "JPY" : "SGD";
+    // In production, redirects to expected locale; when Japan VPN is active, redirects to en-us with JPY; otherwise en-sg
+    const expectedUrl =
+      env === "production"
+        ? `${BASE_URL}/${expectedLocale}${path}`
+        : isUsingJapanVPN
+          ? `${BASE_URL}/en-us${path}?currency=JPY`
+          : `${BASE_URL}/en-sg${path}`;
+    const expectedCurrencyDisplay =
+      env === "production"
+        ? PRODUCTION_EXPECTED_CURRENCY
+        : isUsingJapanVPN
+          ? "JPY"
+          : "SGD";
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({
@@ -214,10 +247,13 @@ test.describe("TEST CASE: 19", () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${BASE_URL}/en-in${path}?currency=SGD`;
-    // When Japan VPN is active, currency param is removed and redirects to en-us
-    const expectedUrl = isUsingJapanVPN
-      ? `${BASE_URL}/en-us${path}?currency=SGD`
-      : `${BASE_URL}/en-sg${path}?currency=SGD`;
+    // In production, redirects to expected locale; when Japan VPN is active, redirects to en-us; otherwise en-sg
+    const expectedUrl =
+      env === "production"
+        ? `${BASE_URL}/${expectedLocale}${path}?currency=SGD`
+        : isUsingJapanVPN
+          ? `${BASE_URL}/en-us${path}?currency=SGD`
+          : `${BASE_URL}/en-sg${path}?currency=SGD`;
     const expectedText = PAGE_EXPECTED_TEXT_EN[path];
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({
@@ -225,7 +261,7 @@ test.describe("TEST CASE: 19", () => {
     }) => {
       await page.goto(url);
 
-      // Expect redirect to expected locale (currency param removed when using Japan VPN)
+      // Expect redirect to expected locale
       await expect(page).toHaveURL(expectedUrl);
 
       // Expect SGD currency to be visible in the header
