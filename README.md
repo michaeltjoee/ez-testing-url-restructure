@@ -186,6 +186,9 @@ Tests for non-supported locale codes with various browser settings and cookies.
 - **TEST CASE 22**: `/ab-id?currency=SGD` with `userlang=en` and `tiket_currency=USD` cookies redirects to `/en-id` with USD currency (cookie overrides query param)
 
 ### Invalid Path Redirection (TEST CASE 41-43)
+
+> ⚠️ **TODO: DOUBLE CHECK ON PRODUCTION (MAY FALSE POSITIVE)**
+
 Tests that invalid locale-country paths redirect to `/en-sg` with SGD currency.
 
 ### EN Domain Redirection (TEST CASE 44-47, 50)

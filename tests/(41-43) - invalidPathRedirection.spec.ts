@@ -33,6 +33,7 @@ const expectedUrl =
 
 const expectedText = PAGE_EXPECTED_TEXT_EN[""];
 
+// TODO: DOUBLE CHECK ON PRODUCTION (MAY FALSE POSITIVE)
 test.describe("TEST CASE: 41, 42, 43", () => {
   for (const invalidLocale of INVALID_LOCALE_COUNTRY_CASES) {
     for (const path of PAGE_PATHS) {
