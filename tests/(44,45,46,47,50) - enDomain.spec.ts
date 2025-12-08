@@ -45,7 +45,12 @@ test.describe('TEST CASE: 45', () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}`;
-    const countryCode = isUsingJapanVPN ? 'us' : 'sg';
+    const countryCode =
+      env === 'production'
+        ? PRODUCTION_EXPECTED_COUNTRY_CODE
+        : isUsingJapanVPN
+          ? 'us'
+          : 'sg';
     const expectedUrl = `${BASE_URL}/id-${countryCode}${path}`;
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
@@ -110,7 +115,12 @@ test.describe('TEST CASE: 50', () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${EN_DOMAIN}${path}?currency=IDR`;
-    const countryCode = isUsingJapanVPN ? 'us' : 'sg';
+    const countryCode =
+      env === 'production'
+        ? PRODUCTION_EXPECTED_COUNTRY_CODE
+        : isUsingJapanVPN
+          ? 'us'
+          : 'sg';
     const expectedUrl = `${BASE_URL}/en-${countryCode}${path}?currency=IDR`;
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {

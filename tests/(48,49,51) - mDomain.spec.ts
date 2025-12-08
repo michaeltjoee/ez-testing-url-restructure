@@ -54,7 +54,12 @@ test.describe('TEST CASE: 51', () => {
 
   for (const path of PAGE_PATHS) {
     const url = `${M_DOMAIN}${path}?currency=IDR`;
-    const countryCode = isUsingJapanVPN ? 'us' : 'sg';
+    const countryCode =
+      env === 'production'
+        ? PRODUCTION_EXPECTED_COUNTRY_CODE
+        : isUsingJapanVPN
+          ? 'us'
+          : 'sg';
     const expectedUrl = `${BASE_URL}/en-${countryCode}${path}?currency=IDR`;
 
     test(`should redirect to ${expectedUrl} from ${url}`, async ({ page }) => {
