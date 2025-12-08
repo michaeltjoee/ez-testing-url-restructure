@@ -114,15 +114,9 @@ Tests for non-supported locale codes with various browser settings and cookies.
 - **TEST CASE 22**: `/ab-id?currency=SGD` with `userlang=en` and `tiket_currency=USD` cookies redirects to `/en-id` with USD currency (cookie overrides query param)
 
 ### Invalid Path Redirection (TEST CASE 41-43)
-
-> ⚠️ **TODO: DOUBLE CHECK ON PRODUCTION (MAY FALSE POSITIVE)**
-
 Tests that invalid locale-country paths redirect to `/en-sg` with SGD currency.
 
 ### EN Domain Redirection (TEST CASE 44-47, 50)
-
-> ⚠️ **TODO: DOUBLE CHECK ON PRODUCTION (MAY FALSE POSITIVE)**
-
 - **TEST CASE 44**: EN domain redirects to `/en-sg` with SGD currency
 - **TEST CASE 45**: With `userlang=id` and `tiket_currency=IDR` cookies, redirects to `/id-sg` with IDR currency
 - **TEST CASE 46**: EN domain with `/en-us` path maintains locale-country with USD currency
@@ -130,9 +124,6 @@ Tests that invalid locale-country paths redirect to `/en-sg` with SGD currency.
 - **TEST CASE 50**: Currency query param `?currency=IDR` is preserved and displays IDR
 
 ### M Domain Redirection (TEST CASE 48, 49, 51)
-
-> ⚠️ **TODO: DOUBLE CHECK ON PRODUCTION (MAY FALSE POSITIVE)**
-
 - **TEST CASE 48**: M domain (legacy mobile) redirects to `/en-sg` with SGD currency
 - **TEST CASE 49**: M domain with `/en-us` path redirects to `/en-us` with USD currency
 - **TEST CASE 51**: M domain with `?currency=IDR` query param redirects to `/en-sg?currency=IDR` with IDR currency
