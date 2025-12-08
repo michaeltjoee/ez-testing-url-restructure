@@ -21,14 +21,9 @@ export const M_DOMAIN =
       ? "https://m.gatotkaca.tiket.com"
       : "https://m.preprod.tiket.com";
 
-export const BLIBLITIKET_LOGIN_URL =
-  env === "production"
-    ? "https://bliblitiket.com/login"
-    : "https://staging.bliblitiket.com/login";
-
-// Production expected values for non-targeted country/locale tests
-export const PRODUCTION_EXPECTED_COUNTRY_CODE = "id";
-export const PRODUCTION_EXPECTED_CURRENCY = "IDR";
+// Production expected values for non-targeted country/locale tests (from .env)
+export const PRODUCTION_EXPECTED_COUNTRY_CODE = process.env.productionExpectedCountryCode || "id";
+export const PRODUCTION_EXPECTED_CURRENCY = process.env.productionExpectedCurrency || "IDR";
 
 const EXPLORE_PATH =
   env === "production" ? "/explore/flight-tiket-best-deals" : "/explore/japan";
