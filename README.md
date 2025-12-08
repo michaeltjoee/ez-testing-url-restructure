@@ -34,83 +34,7 @@ This opens an interactive interface where you can:
 - View detailed test traces and screenshots
 - Debug failing tests easily
 
-### Run all tests (headless)
-
-```bash
-pnpm exec playwright test
-```
-
-### Run specific test file
-
-```bash
-# Main logic tests (TEST CASE 4, 5, 14, 15, 16, 23)
-pnpm exec playwright test "mainLogic"
-
-# Non-targeted country and locale tests (TEST CASE 6, 7, 8, 9, 10, 17, 18, 19)
-pnpm exec playwright test "nonTargetedCountryAndLocale"
-
-# Non-targeted locale tests (TEST CASE 11, 12, 13, 20, 21, 22)
-pnpm exec playwright test "nonTargetedLocale"
-
-# Logged out user with initial preference tests (TEST CASE 31, 32, 33)
-pnpm exec playwright test "logoutLogin with initial preference"
-
-# User without initial preference tests (TEST CASE 34, 35, 36)
-pnpm exec playwright test "logoutLogin without initial preference"
-
-# Invalid path redirection tests (TEST CASE 41-43)
-pnpm exec playwright test "invalidPathRedirection"
-
-# EN domain tests (TEST CASE 44, 45, 46, 47, 50)
-pnpm exec playwright test "enDomain"
-
-# M domain tests (TEST CASE 48, 49, 51)
-pnpm exec playwright test "mDomain"
-
-# Case-insensitive locale redirect tests
-pnpm exec playwright test "important"
-
-# Apple App Site Association (AASA) tests
-pnpm exec playwright test "aasa"
-```
-
-### Run tests in headed mode (see browser)
-
-```bash
-pnpm exec playwright test --headed
-```
-
-### Run tests for specific browser
-
-```bash
-pnpm exec playwright test --project=chromium
-pnpm exec playwright test --project=firefox
-pnpm exec playwright test --project=webkit
-```
-
-## Environment Configuration
-
-Tests support three environments: **preprod** (default), **staging**, and **production**.
-
-### Preprod (default)
-
-```bash
-pnpm exec playwright test
-```
-
-### Staging
-
-```bash
-environment=staging pnpm exec playwright test
-```
-
-### Production
-
-```bash
-environment=production pnpm exec playwright test
-```
-
-### Using .env file
+## Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -118,15 +42,19 @@ Create a `.env` file in the project root:
 environment=preprod
 isUsingJapanVPN=false
 validateText=false
+productionExpectedCountryCode=id
+productionExpectedCurrency=IDR
+browsers=chromium
 ```
-
-### Environment Variables
 
 | Variable | Values | Default | Description |
 |----------|--------|---------|-------------|
 | `environment` | `preprod`, `staging`, `production` | `preprod` | Target environment for tests |
 | `isUsingJapanVPN` | `true`, `false` | `false` | Set to `true` when running tests through a Japan VPN to simulate Japanese IP geolocation |
 | `validateText` | `true`, `false` | `false` | Set to `true` to enable path-specific text validation (e.g., "Enjoy our great ongoing promos!" on /promo page) |
+| `productionExpectedCountryCode` | Country code (e.g., `id`, `sg`, `us`) | `id` | Expected country code for production redirects (used in tests like invalid path redirection) |
+| `productionExpectedCurrency` | Currency code (e.g., `IDR`, `SGD`, `USD`) | `IDR` | Expected currency for production redirects (used in tests like invalid path redirection) |
+| `browsers` | `chromium`, `firefox`, `webkit` (comma-separated) | `chromium` | Browsers to run tests on. Supports multiple browsers: `chromium,firefox,webkit` |
 
 ## Domain Configuration
 
